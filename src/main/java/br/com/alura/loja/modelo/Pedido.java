@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,11 +27,24 @@ public class Pedido {
 	@ManyToOne
 	private Cliente cliente;
 	
+	/*
+	 * Prefiro já inicializar a lista pra evitar a ficar realizando if else
+	 * Assim ele sempre inicializa com uma lista vazia
+	 */
 	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedido> itens;
+	private List<ItemPedido> itens = new ArrayList<>();
 
 	public Pedido(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	
+	/*
+	 * Método utilitario para receber o item que é o elemento da coleção ItemPedido
+	 * E setar os dois lados do relacionamento 
+	 */
+	public void adicionarItem(ItemPedido item) {
+		item.setPedido(this);
+		this.itens.add(item);
 	}
 
 	public Pedido() {
