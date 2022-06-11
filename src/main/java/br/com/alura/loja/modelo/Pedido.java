@@ -1,5 +1,7 @@
 package br.com.alura.loja.modelo;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
 	private LocalDate data = LocalDate.now();
 
@@ -31,7 +34,7 @@ public class Pedido {
 	 * Prefiro já inicializar a lista pra evitar a ficar realizando if else
 	 * Assim ele sempre inicializa com uma lista vazia
 	 */
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ItemPedido> itens = new ArrayList<>();
 
 	public Pedido(Cliente cliente) {
