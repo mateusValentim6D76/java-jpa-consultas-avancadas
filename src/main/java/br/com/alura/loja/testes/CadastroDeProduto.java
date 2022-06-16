@@ -44,6 +44,7 @@ public class CadastroDeProduto {
 		
 		em.getTransaction().commit();
 		
+		
 		em.find(Categoria.class, new CategoriaId("CELULARES", "xptop"));
 		
 		em.close();
